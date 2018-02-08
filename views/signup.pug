@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h2 signup
+
+  form(action="/signup" method="POST")
+    input(type="Text" placeholder="username" name="username")
+    input(type="Text" placeholder="****" name="password")
+    input(type="submit")
