@@ -98,7 +98,7 @@ app.post('/signup',function(req,res){
   
   Account.findOne({username: req.body.username}, function(error,account)
   {
-    if(err)
+    if(error)
     {   console.log("YO");
     	return res.render('error',{message:"User already exists", error:"hahah"});
     }
