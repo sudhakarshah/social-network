@@ -7,11 +7,28 @@
   },
   "dependencies": {
     "body-parser": "~1.18.2",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "express": "~4.15.5",
+    "co": "~4.6.0",
+    "compression": "~1.7.0",
+    "connect-flash": "~0.1.1",
+    "connect-mongo": "~2.0.0",
+    "cookie-parser": "~1.4.0",
+    "cookie-session": "~2.0.0-beta.3",
+    "cors": "~2.8.0",
+    "cross-env": "~5.1.0",
+    "csurf": "~1.9.0",
+    "dotenv": "~4.0.0",
+    "express": "~5.0.0-alpha.6",
+    "express-session": "~1.15.0",
+    "forever": "~0.15.1",
     "jade": "~1.11.0",
+    "method-override": "~2.3.5",
+    "mongoose": "~4.13.0",
     "morgan": "~1.9.0",
-    "serve-favicon": "~2.4.5"
+    "multer": "~1.3.0",
+    "notifier": "~0.1.7",
+    "only": "0.0.2",
+    "view-helpers": "~0.1.5",
+    "winston": "~2.4.0",
+    "body-parser": "^1.7.0"
   }
 }
