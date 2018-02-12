@@ -21,6 +21,7 @@ var Account= require('./models/Account');
 var app = express();
 
 // view engine setup
+app.engine('pug', require('pug').__express);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -31,7 +32,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret: 'ssshhhhh'}));
+app.use(session({secret: 'ssshhhhh',
+resave: false,
+    saveUninitialized: false}));
+
+app.listen(3000, function(){
+	console.log("Server running on 3000...");
+})
+
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
@@ -71,7 +79,7 @@ app.post('/login',function(req,res){
     }
 
     if (!account){
-      return res.render('error',{message:"user doesnot exist",error:"hahah"});
+      return res.render('error',{message:"user does not exist",error:"hahah"});
     }
 
     if (account.compare(req.body.password)){
@@ -87,7 +95,15 @@ app.post('/login',function(req,res){
 });
 
 app.post('/signup',function(req,res){
-  if (req.body.username && req.body.password )
+  
+  Account.findOne({username: req.body.username}, function(error,account)
+  {
+    if(err)
+    {   console.log("YO");
+    	return res.render('error',{message:"User already exists", error:"hahah"});
+    }
+
+    else if(req.body.username && req.body.password )
   {
     Account.create({
       username : req.body.username,
@@ -100,13 +116,13 @@ app.post('/signup',function(req,res){
         res.locals.error=error;
         res.status(error.status || 500);
         */
-        res.render('error',{message:"user not created",error:"some error occured"});
+        res.render('error',{message:"User Already Exists",error:"some error occured"});
       }
 
       else{
         res.send(account);
       }
-    })
+    });
   }
   else {
     res.locals.message = error.message;
@@ -114,7 +130,12 @@ app.post('/signup',function(req,res){
     res.status(error.status || 500);
     res.render('error',{message: "username and password required"});
   }
-});
+
+
+
+  });
+
+  });
 
 
 // catch 404 and forward to error handler

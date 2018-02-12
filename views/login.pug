@@ -1,9 +1,11 @@
 extends layout
 
 block content
-  h1 login
+  h2 Login Portal
 
   form(action="/login" method="POST")
     input(type="Text" placeholder="username" name="username")
     input(type="Text" placeholder="****" name="password")
+    |
     input(type="submit")
+  h2=message
