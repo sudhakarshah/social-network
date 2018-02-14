@@ -17,6 +17,7 @@ var db = mongoose.connect('mongodb://localhost:27017/sn');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var Account= require('./models/Account');
+var Post= require('./models/Post');
 
 var app = express();
 
@@ -36,10 +37,12 @@ app.use(session({secret: 'ssshhhhh',
 resave: false,
     saveUninitialized: false}));
 
+
+/*
 app.listen(3000, function(){
 	console.log("Server running on 3000...");
 })
-
+*/
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
@@ -57,6 +60,36 @@ var authenticate = function(req,res,next){
 app.use('/', index);
 app.use('/users', users);
 
+
+app.get('/post',authenticate,function(req,res){
+  res.render('post',{title:"Post Something"});
+});
+app.post('/post',authenticate,function(req,res){
+  if(!req.body || !req.body.post)
+  {
+    return res.render('error',{message:"post doesnt exists",error:"error"});
+  }
+
+  Post.create({
+    post: req.body.post,
+    author: req.session.user._id
+  },function(error,post){
+    if(error) return res.render('error',{message:"post not created",error:"error"});
+
+    console.log("Post created");
+    res.redirect("/status/"+post._id);
+  });
+
+});
+
+app.get('/status/:id',function(req,res){
+  Post.findOne({_id: req.params.id},function(error,post){
+    Account.findOne({_id:post.author},function(err,user){
+      res.render("status",{username:user.username,content:post.post});
+    })
+  })
+});
+
 app.get('/login',function(req,res){
   res.render('login', { title: "login" });
 });
@@ -66,7 +99,7 @@ app.get('/signup',function(req,res){
 });
 
 app.get('/me',authenticate,function(req,res){
-  res.render('me');
+  res.render('me',{username:req.session.user.username});
 
 });
 
@@ -85,7 +118,7 @@ app.post('/login',function(req,res){
     if (account.compare(req.body.password)){
       req.session.user = account;
       req.session.save();
-      res.redirect('/me');
+      res.redirect('/');
     }
     else {
       return res.render('error',{message:"wrong password",error:"hahah"});
@@ -95,10 +128,10 @@ app.post('/login',function(req,res){
 });
 
 app.post('/signup',function(req,res){
-  
+
   Account.findOne({username: req.body.username}, function(error,account)
   {
-    if(err)
+    if(error)
     {   console.log("YO");
     	return res.render('error',{message:"User already exists", error:"hahah"});
     }
@@ -120,7 +153,7 @@ app.post('/signup',function(req,res){
       }
 
       else{
-        res.send(account);
+        res.redirect('/');
       }
     });
   }
