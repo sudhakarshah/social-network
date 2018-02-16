@@ -38,11 +38,11 @@ resave: false,
     saveUninitialized: false}));
 
 
-/*
+
 app.listen(3000, function(){
 	console.log("Server running on 3000...");
 })
-*/
+
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
@@ -77,7 +77,8 @@ app.post('/post',authenticate,function(req,res){
     if(error) return res.render('error',{message:"post not created",error:"error"});
 
     console.log("Post created");
-    res.redirect("/status/"+post._id);
+    res.redirect("./")
+    //res.redirect("/status/"+post._id);
   });
 
 });
@@ -118,7 +119,7 @@ app.post('/login',function(req,res){
     if (account.compare(req.body.password)){
       req.session.user = account;
       req.session.save();
-      res.redirect('/');
+      res.redirect('/me');
     }
     else {
       return res.render('error',{message:"wrong password",error:"hahah"});
@@ -169,6 +170,15 @@ app.post('/signup',function(req,res){
   });
 
   });
+
+//logout request
+app.get('/logout',function(req,res)
+	{
+      req.session.destroy();
+      res.render('logout');
+
+	});
+
 
 
 // catch 404 and forward to error handler
