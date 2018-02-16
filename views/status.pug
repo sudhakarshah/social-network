@@ -1,6 +1,13 @@
 extends layout
 
 block content
-  h2=username
+
+  div(class='topnav')
+		a(class="active" href="./") Home
+		a(href="/signup") Signup
+		a(href="./logout") Logout
+		
+
+  h2(class="titlehead")=username
 
   p=content

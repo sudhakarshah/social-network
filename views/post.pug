@@ -1,7 +1,13 @@
 extend layout
 
 block content
-  form(action="/post" method="POST")
-    textarea(name="post" placeholder="Post Something!")
+	div(class='topnav')
+		a(class="active" href="/me") Home
+		a(href="/signup") Signup
+		a(href="./logout") Logout
 
-    input(type="submit")
+	form(action="/post" method="POST")
+		textarea(name="post" placeholder="Post Something!")
+		input(type="submit")
+
+	

@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     });
   }
   else {
-    res.render('welcome', { title: "Diaspora Dudes" });
+    res.render('welcome', { title: "Social Network" });
 
   }
 

@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h2 welcome
-  h1=username
+	div(class='topnav')
+		a(class="active" href="./") Home
+		a(href="/signup") Signup
+		a(href="./logout") Logout
+
+	h2(class="titlehead") Welcome to the network..
+	h1=username
+	button(onclick="window.location='/post'" class='buttonsignup') Post Something

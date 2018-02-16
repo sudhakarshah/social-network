@@ -1,8 +1,21 @@
 extends layout
 
 block content
-  a(href="/post") new post
+	div(class='topnav')
+		a(class="active" href="./") Home
+		a(href="/signup") Signup
+		a(href="./logout") Logout
 
-  ul
-    each post in posts
-      li=post
+
+	
+	p(class="titlehead") Your Posts
+
+	div(class="list-type2")
+	ul
+		each post in posts
+			li=post.post
+
+	button(onclick="window.location='/post'" class='buttonsignup') New Post
+
+
+	

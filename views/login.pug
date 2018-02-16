@@ -1,11 +1,15 @@
 extends layout
 
 block content
-  h2 Login Portal
+	div(class='topnav')
+		a(href="/signup") Signup
+		a(href="/login") Login
 
-  form(action="/login" method="POST")
-    input(type="Text" placeholder="username" name="username")
-    input(type="Text" placeholder="****" name="password")
-    |
-    input(type="submit")
-  h2=message
+	h2 Login Portal
+
+	form(action="/login" method="POST")
+		input(type="Text" placeholder="username" name="username")
+		input(type="Text" placeholder="****" name="password")
+		|
+		input(type="submit")
+	h2=message
