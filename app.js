@@ -72,7 +72,9 @@ app.post('/post',authenticate,function(req,res){
 
   Post.create({
     post: req.body.post,
-    author: req.session.user._id
+    author: req.session.user._id,
+    username: req.session.user.username
+
   },function(error,post){
     if(error) return res.render('error',{message:"post not created",error:"error"});
 

@@ -8,12 +8,14 @@ block content
 
 
 	
-	p(class="titlehead") Your Posts
+	p(class="titlehead") All Posts
 
 	div(class="list-type2")
 	ul
 		each post in posts
-			li=post.post
+
+
+			li=(post.post +  "   Written By:"  + post.username) 
 
 	button(onclick="window.location='/post'" class='buttonsignup') New Post
 
